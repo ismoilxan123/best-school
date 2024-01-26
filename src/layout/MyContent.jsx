@@ -11,6 +11,7 @@ const MyContent = () => {
       }}
     >
       <Outlet />
+      <h1>Home</h1>
     </Content>
   );
 };
