@@ -1,12 +1,13 @@
 import { Button, Drawer, Flex, Form, Input, Table } from "antd";
-import { UserAddOutlined } from "@ant-design/icons";
+import { DeleteFilled, UserAddOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import useTeacher from "../hooks/useTeacher";
 import { useForm } from "antd/es/form/Form";
 
 const Teacher = () => {
   const [form] = useForm();
-  const { loading, data, addTeacher, open, setOpen } = useTeacher();
+  const { loading, data, addTeacher, open, setOpen, deleteTeacher } =
+    useTeacher();
   const onFinish = (value) => {
     addTeacher(value);
   };
@@ -30,8 +31,15 @@ const Teacher = () => {
     },
     {
       title: "Action",
-      key: "action",
-      reder: (record) => record.id,
+      key: "3",
+      render: (record) => (
+        <Button
+          onClick={() => deleteTeacher(record.id)}
+          type="primary"
+          danger
+          icon={<DeleteFilled></DeleteFilled>}
+        ></Button>
+      ),
     },
   ];
 
@@ -49,7 +57,7 @@ const Teacher = () => {
       <br />
       <Table
         loading={loading}
-        rowKey="firstName"
+        rowKey="id"
         columns={columns}
         dataSource={data}
       />

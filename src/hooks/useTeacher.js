@@ -1,4 +1,10 @@
-import { addDoc, collection, getDocs } from "firebase/firestore/lite";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore/lite";
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
 
@@ -14,7 +20,7 @@ export default () => {
     setLoading(true);
     const col = collection(db, "teachers");
     const snapshot = await getDocs(col);
-    setData(snapshot.docs.map((doc) => doc.data()));
+    setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoading(false);
   }
 
@@ -31,11 +37,23 @@ export default () => {
     setLoading(false);
   }
 
+  async function deleteTeacher(id) {
+    try {
+      setLoading(true);
+      await deleteDoc(doc(db, "teachers", id));
+      setData(data.filter((d) => d.id != id));
+    } catch {
+      console.log(error);
+    }
+    setLoading(false);
+  }
+
   return {
     loading,
     data,
     addTeacher,
     open,
     setOpen,
+    deleteTeacher,
   };
 };
