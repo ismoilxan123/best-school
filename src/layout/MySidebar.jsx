@@ -41,14 +41,15 @@ const MySidebar = () => {
           },
           {
             key: 3,
-            label: <NavLink to={"/classes"}>Classes</NavLink>,
-            icon: <GroupOutlined></GroupOutlined>,
-          },
-          {
-            key: 4,
             label: <NavLink to={"/subjects"}>Subjects</NavLink>,
             icon: <BookOutlined></BookOutlined>,
           },
+          {
+            key: 4,
+            label: <NavLink to={"/classes"}>Classes</NavLink>,
+            icon: <GroupOutlined></GroupOutlined>,
+          },
+
           {
             key: 5,
             label: <NavLink to={"/timetable"}>Timetable</NavLink>,
